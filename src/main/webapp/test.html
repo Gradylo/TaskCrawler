@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>test.html</title>
+
+<meta http-equiv="keywords" content="keyword1,keyword2,keyword3">
+<meta http-equiv="description" content="this is my page">
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+<!--<link rel="stylesheet" type="text/css" href="./styles.css">-->
+<script src="js/jquery.min.js"></script>
+<script src="js/test.js"></script>
+<script type="text/javascript" src="js/tripledes.js"></script>
+<script type="text/javascript" src="js/frameDomainJSON.js"></script>
+
+</head>
+<script type="text/javascript">
+	function test() {
+	var ids={id:20};
+	var baseList=[];
+	var parame={id:"1507",Name:"7777"};
+	//parame=JSON.stringify(parame);
+    var data1={size:25,page:0,order:"id",ascOrdesc:"desc"};
+    //var data1={id:"1845",Theorder:"1"};
+	var data={id:17,messorder:777,ispass:0};
+    var data2={id:18,className:""};
+    //var data2={id:"1841",Theorder:"0",Type:"2",LabelName:"#ggggg#",Describe:"rrr.....",State:"0",sSeeNum:"7777"};
+    //var data3={Theorder:"2",Type:"1",LabelName:"#test8888#",Describe:"66.....",State:"1",sSeeNum:"6666"}; 
+    baseList.push(data);
+    baseList.push(data2);
+    baseList=JSON.stringify(baseList);
+    //baseList.push(data3);
+	//data=JSON.stringify(data1); 
+	//data=parameIcy5c(data);
+	//data="parame="+data;
+	//var url="http://localhost:8083/yez_easybuyMall_AppPcManager/brandController/updateBrandStateById.easy?"+data;
+	//url =addHref(url);
+	
+	//console.log(url);
+	/* $.get(url,"",function(data){
+		alert(data.num);
+	},"JSON"); */
+	 	$.ajax({
+			url : "job1.easy",
+			contentType:"application/json;charset=UTF-8",
+			type : "get",
+			dataType : "JSON",
+			success : function(data) {
+				console.log(data);
+			},
+		});
+}
+ 
+</script>
+
+<body>
+	<input type="button" value="test" onclick="test();">
+	<div>
+		<form enctype="multipart/form-data" action="shopController/updateShop.easy" method="post" >
+		<input type="text" name="id"/>
+			商店名称:<input type="text"  name="shopname"><br>
+			商品类别:<input type="text" name="goodstype"><br>
+			店铺登入账号:<input type="text" name="us"><br>
+			店铺登入密码:<input type="text" name="pw"><br>
+			店铺专属号:<input type="text" name="ShopOnlyID"><br>
+			店铺描述:<input type="text" name="shopms"><br>
+			是否有实体店:<input type="text" name="shitidian"><br>
+			实体店地址:<input type="text" name="ShopAddress"><br>
+			店铺状态:<input type="text" name="state"><br>
+			广告url:<input type="text" name="advertisingurl"><br>
+			状态:<input type="text" name="ZTState"><br>
+			入住日期:<input type="text" name="addtime"><br>
+			开张日期:<input type="text" name="OpeningDate"><br>
+			约满日期:<input type="text" name="AboutFullDate"><br>
+			排序:<input type="text" name="theorder"><br>
+			店主:<input type="text" name="shopMan"><br>
+			电话:<input type="text" name="Tel"><br>
+			whatsapp:<input type="text" name="ShopWhatsapp"><br>
+			wechat:<input type="text" name="ShopWechat"><br>
+			身份证:<input type="text" name="ShoPCID"><br>
+			好店街广告:<input type="file" name="uploadStoreadvertising" /><br>
+			商店logo:<input type="file" name="uploadLogo" /><br>
+			店主头像:<input type="file" name="uploadShoppic"/><br>
+			<input type="submit" value="确定">
+		</form>
+	</div>
+	<div>
+		<form enctype="multipart/form-data" action="messController/updateMessTopic.easy" method="post" >
+		 id:<input type="text"  name="id"><br> 
+			title:<input type="text"  name="title"><br>
+			classid:<input type="text"  name="classid"><br>
+			classsid:<input type="text"  name="classsid"><br>
+			图片1:<input type="file" name="uploadImg" /><br>
+			图片2:<input type="file" name="uploadAppimg" /><br>
+			<input type="submit" value="确定">
+		</form>
+	</div>
+</body>
+
+</html>

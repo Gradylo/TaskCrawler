@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="interfaces.dao.MusicListDao">
+
+	<!-- 定义一个查询语句获取所有项目信息 -->
+	<select id="findMusicList" resultType="model.Music">
+		select * from PlayList
+	</select>
+	
+	<!-- 批量插入 -->
+	<insert id="saveHotMusicList" parameterType="java.util.List">
+		INSERT INTO HotRank (RankNum,Song,url,SongTime,Singer,addtime,uptime)
+		VALUES
+		<foreach collection="list" index="index" item="item"
+			separator=",">
+			(#{item.RankNum},#{item.Song},
+			#{item.url},#{item.SongTime},#{item.Singer},
+			#{item.addtime},#{item.uptime})
+		</foreach>
+	</insert>
+
+	<!-- separator:中间分隔符 collection:表示类型,这里参数是数组,就写成array,如果是集合,就写成list -->
+	<delete id="deleteHotMusic" parameterType="int">
+		delete from HotRank where id in
+		<foreach item="id" collection="array" open="(" separator=","
+			close=")">
+			#{id}
+		</foreach>
+	</delete>
+	
+	<!-- 批量更新 -->
+	<update id="updateHotMusicList" parameterType="java.util.List" >
+		<foreach collection="list" index="index" item="item"
+			separator=";">
+			update HotRank set
+			RankNum=#{item.RankNum},
+			Song=#{item.Song,jdbcType=NVARCHAR},
+			url=#{item.url},
+			SongTime=#{item.SongTime},
+			Singer=#{item.Singer},
+			uptime=#{item.uptime}
+			where id=#{item.id}
+		</foreach>
+	</update>
+	
+	<!-- 查询热歌榜 -->
+	<select id="findHotMusicList" resultType="model.HotMusic">
+		select * from HotRank
+	</select>
+
+
+</mapper>
+
