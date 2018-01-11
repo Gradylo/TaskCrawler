@@ -18,14 +18,14 @@ import crawler.Phantomjs;
 @Component
 public class TaskJob {
 
-	@Resource(name = "musicList")
+	@Resource(name = "musicListDao")
 	private MusicListDao MusicList;
 
 	@Scheduled(cron = "0/3 * * * * ?")
 	public void aTask() {
 		List<HotMusic> list= new Phantomjs().crawlerHtml("http://music.163.com/#/discover/toplist?id=3778678");
 		List<HotMusic> updateHotMusicList=MusicList.findHotMusicList();
-		for (int i=0;i<updateHotMusicList.size();i++) {
+		for (int i=0;i<list.size();i++) {
 			int id=updateHotMusicList.get(i).getId();
 			list.get(i).setId(id);
 		}
@@ -35,7 +35,6 @@ public class TaskJob {
 		System.out.println(num);
 		System.out.println(sdf.format(new Date()));
 		System.out.println("----------------end-------------------------");
-		
 	}
 
 

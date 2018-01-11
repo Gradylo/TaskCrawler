@@ -55,7 +55,7 @@ public class Phantomjs {
 		        	String num=webElement.findElement(By.tagName("span")).getText();
 		        	String song=webElement.findElement(By.tagName("b")).getAttribute("title");
 		        	//替换&nbsp;
-		        	song= new String(song.getBytes(),"utf-8").replace(Jsoup.parse("&nbsp;").text(), " ");;
+		        	song= song.replace(Jsoup.parse("&nbsp;").text(), " ");
 		        	String time=webElement.findElement(By.className("s-fc3")).getText();
 		        	String singer=webElement.findElement(By.className("text")).getAttribute("title");
 		        	HotMusic hotMusic=new HotMusic();

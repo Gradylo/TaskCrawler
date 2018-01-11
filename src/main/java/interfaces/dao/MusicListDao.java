@@ -8,7 +8,7 @@ import model.Music;
 import org.springframework.stereotype.Repository;
 
 
-@Repository("musicList")
+@Repository("musicListDao")
 public interface MusicListDao {
 	
 	/*查询列表*/

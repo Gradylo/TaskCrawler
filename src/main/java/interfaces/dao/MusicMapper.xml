@@ -45,7 +45,7 @@
 	
 	<!-- 查询热歌榜 -->
 	<select id="findHotMusicList" resultType="model.HotMusic">
-		select * from HotRank
+		SELECT * FROM HotRank
 	</select>
 
 
