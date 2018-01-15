@@ -19,6 +19,7 @@ public class TaskJob {
     @Resource(name = "musicListDao")
     private MusicListDao MusicList;
 
+    
 //    @Scheduled(cron = "3 * * * * ?")
     public void aTask() {
         List<HotMusic> list = new Phantomjs().crawlerHtml("http://music.163.com/#/discover/toplist?id=3778678");
