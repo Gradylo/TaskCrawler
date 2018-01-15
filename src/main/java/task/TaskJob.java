@@ -7,7 +7,13 @@ import org.springframework.stereotype.Component;
 
 import javax.annotation.Resource;
 import java.util.List;
-
+/**
+ * 定时任务bean
+ * @author zhipeng
+ * @Date: Created in  2018-01-15 
+ * @name TaskJob.java
+ * @info TODO
+ */
 @Component
 public class TaskJob {
     @Resource(name = "musicListDao")
