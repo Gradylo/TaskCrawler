@@ -9,13 +9,13 @@
 	
 	<!-- 批量插入 -->
 	<insert id="saveHotMusicList" parameterType="java.util.List">
-		INSERT INTO HotRank (RankNum,Song,url,SongTime,Singer,addtime,uptime,songId)
+		INSERT INTO HotRank (RankNum,Song,url,SongTime,Singer,addtime,uptime,songId,img)
 		VALUES
 		<foreach collection="list" index="index" item="item"
 			separator=",">
 			(#{item.RankNum},#{item.Song},
 			#{item.url},#{item.SongTime},#{item.Singer},
-			#{item.addtime},#{item.uptime},#{item.songId})
+			#{item.addtime},#{item.uptime},#{item.songId},#{item.img})
 		</foreach>
 	</insert>
 
