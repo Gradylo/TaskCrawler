@@ -16,10 +16,18 @@
 	<mvc:annotation-driven />
 	<!-- 定时任务线程池 -->
 	<task:scheduler id="myScheduler" pool-size="5"/>
-	
+
 	<!-- 註解掃描 生成bean begin -->
+	<context:component-scan base-package="controller"/>
 	<context:component-scan base-package="task" />
+	<context:component-scan base-package="impl"/>
+	<context:component-scan base-package="interfaces"/>
 	<!-- end -->
+
+	<bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+		<property name="prefix" value="/WEB-INF/"/>
+		<property name="suffix" value=".html"/>
+	</bean>
 
 
 </beans>

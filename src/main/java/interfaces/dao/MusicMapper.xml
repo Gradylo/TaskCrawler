@@ -9,25 +9,16 @@
 	
 	<!-- 批量插入 -->
 	<insert id="saveHotMusicList" parameterType="java.util.List">
-		INSERT INTO HotRank (RankNum,Song,url,SongTime,Singer,addtime,uptime)
+		INSERT INTO HotRank (RankNum,Song,url,SongTime,Singer,addtime,uptime,songId)
 		VALUES
 		<foreach collection="list" index="index" item="item"
 			separator=",">
 			(#{item.RankNum},#{item.Song},
 			#{item.url},#{item.SongTime},#{item.Singer},
-			#{item.addtime},#{item.uptime})
+			#{item.addtime},#{item.uptime},#{item.songId})
 		</foreach>
 	</insert>
 
-	<!-- separator:中间分隔符 collection:表示类型,这里参数是数组,就写成array,如果是集合,就写成list -->
-	<delete id="deleteHotMusic" parameterType="int">
-		delete from HotRank where id in
-		<foreach item="id" collection="array" open="(" separator=","
-			close=")">
-			#{id}
-		</foreach>
-	</delete>
-	
 	<!-- 批量更新 -->
 	<update id="updateHotMusicList" parameterType="java.util.List" >
 		<foreach collection="list" index="index" item="item"
@@ -38,7 +29,8 @@
 			url=#{item.url},
 			SongTime=#{item.SongTime},
 			Singer=#{item.Singer},
-			uptime=#{item.uptime}
+			uptime=#{item.uptime},
+			songId=#{item.songId}
 			where id=#{item.id}
 		</foreach>
 	</update>
@@ -48,6 +40,31 @@
 		SELECT * FROM HotRank
 	</select>
 
+
+	<!-- 批量删除音乐 -->
+	<!-- separator:中间分隔符 collection:表示类型,这里参数是数组,就写成array,如果是集合,就写成list -->
+	<delete id="deleteHotMusicList" parameterType="java.util.List">
+		delete from HotRank where id in
+		<foreach item="id" collection="list" open="(" separator=","
+				 close=")">
+			#{id}
+		</foreach>
+	</delete>
+
+
+	<!--删除列表-->
+	<delete id="deleteHotMusic">
+		DELETE FROM HotRank
+	</delete>
+	
+	<!--分页查询热歌榜-->
+	<select id="queryHotMusic" resultType="model.HotMusic" parameterType="model.paging.PagingTransmission">
+		select
+			TOP (${pagingTransmission.size})  * ,( select  count(*)   from  HotRank   where 1=1 ) pagingParametersCount
+		from
+			(SELECT ROW_NUMBER() OVER (ORDER BY   a.RankNum   ASC ) AS RowNumber,* FROM
+				(  select  *   from  HotRank   where 1=1  ) a )   as A    where 1=1  and RowNumber > ((${pagingTransmission.size})*(${pagingTransmission.page}))
+	</select>
 
 </mapper>
 

@@ -4,92 +4,102 @@ import java.io.Serializable;
 
 /**
  * 热歌榜
+ *
  * @author zhipeng
  * @time 2018-1-6
  * @name HotMusic
  * @info TODO
  */
 @SuppressWarnings("serial")
-public class HotMusic implements Serializable{
-		
-	private int 				id;
-	
-	private int 				RankNum;
-	
-	private String 				Song;
-	
-	private String 				url;
-	
-	private String				SongTime;
-	
-	private String				Singer;
-	
-	private String				addtime;
-	
-	private String 				uptime;
+public class HotMusic implements Serializable {
 
-	public int getId() {
-		return id;
-	}
+    private int id;
 
-	public void setId(int id) {
-		this.id = id;
-	}
+    private int RankNum;
 
-	public int getRankNum() {
-		return RankNum;
-	}
+    private String Song;
 
-	public void setRankNum(int rankNum) {
-		RankNum = rankNum;
-	}
+    private String url;
 
-	public String getSong() {
-		return Song;
-	}
+    private String SongTime;
 
-	public void setSong(String song) {
-		Song = song;
-	}
+    private String Singer;
 
-	public String getUrl() {
-		return url;
-	}
+    private String addtime;
 
-	public void setUrl(String url) {
-		this.url = url;
-	}
+    private String uptime;
 
-	public String getSongTime() {
-		return SongTime;
-	}
+    private String songId;
 
-	public void setSongTime(String songTime) {
-		SongTime = songTime;
-	}
+    public int getId() {
+        return id;
+    }
 
-	public String getSinger() {
-		return Singer;
-	}
+    public void setId(int id) {
+        this.id = id;
+    }
 
-	public void setSinger(String singer) {
-		Singer = singer;
-	}
+    public int getRankNum() {
+        return RankNum;
+    }
 
-	public String getAddtime() {
-		return addtime;
-	}
+    public void setRankNum(int rankNum) {
+        RankNum = rankNum;
+    }
 
-	public void setAddtime(String addtime) {
-		this.addtime = addtime;
-	}
+    public String getSong() {
+        return Song;
+    }
 
-	public String getUptime() {
-		return uptime;
-	}
+    public void setSong(String song) {
+        Song = song;
+    }
 
-	public void setUptime(String uptime) {
-		this.uptime = uptime;
-	}
-	
+    public String getUrl() {
+        return url;
+    }
+
+    public void setUrl(String url) {
+        this.url = url;
+    }
+
+    public String getSongTime() {
+        return SongTime;
+    }
+
+    public void setSongTime(String songTime) {
+        SongTime = songTime;
+    }
+
+    public String getSinger() {
+        return Singer;
+    }
+
+    public void setSinger(String singer) {
+        Singer = singer;
+    }
+
+    public String getAddtime() {
+        return addtime;
+    }
+
+    public void setAddtime(String addtime) {
+        this.addtime = addtime;
+    }
+
+    public String getUptime() {
+        return uptime;
+    }
+
+    public void setUptime(String uptime) {
+        this.uptime = uptime;
+    }
+
+    public String getSongId() {
+        return songId;
+    }
+
+    public void setSongId(String songId) {
+        this.songId = songId;
+    }
 }
