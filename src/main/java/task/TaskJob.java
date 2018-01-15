@@ -3,6 +3,7 @@ package task;
 import crawler.Phantomjs;
 import interfaces.dao.MusicListDao;
 import model.HotMusic;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.Resource;
@@ -19,8 +20,8 @@ public class TaskJob {
     @Resource(name = "musicListDao")
     private MusicListDao MusicList;
 
-    
-//    @Scheduled(cron = "3 * * * * ?")
+
+    @Scheduled(cron = "3 * * * * ?")
     public void aTask() {
         List<HotMusic> list = new Phantomjs().crawlerHtml("http://music.163.com/#/discover/toplist?id=3778678");
         int del = this.MusicList.deleteHotMusic();

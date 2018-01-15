@@ -106,7 +106,6 @@
         <element id="file-copy" path="$PROJECT_DIR$/target/TaskCrawler-0.0.1-SNAPSHOT/META-INF/MANIFEST.MF" />
       </element>
       <element id="javaee-facet-resources" facet="TaskCrawler/web/Web" />
-      <element id="dir-copy" path="$PROJECT_DIR$" />
     </root>
   </artifact>
 </component>

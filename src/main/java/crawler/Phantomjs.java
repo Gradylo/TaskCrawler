@@ -4,13 +4,13 @@ import com.google.common.collect.Lists;
 import model.HotMusic;
 import org.jsoup.Jsoup;
 import org.openqa.selenium.By;
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.phantomjs.PhantomJSDriver;
 import org.openqa.selenium.remote.DesiredCapabilities;
 import toolUtils.dateUtils.DateUtils;
 
 import java.util.Date;
-import java.util.Iterator;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
@@ -47,6 +47,8 @@ public class Phantomjs {
     public List<HotMusic> crawlerHtml(String url) {
         // 打开页面
         this.driver.get(url);
+        String currentWindow = driver.getWindowHandle();    //获取当前窗口句柄
+        System.out.println("旧的："+currentWindow);
         try {
             // 查找元素
             //输出html内容
@@ -56,8 +58,7 @@ public class Phantomjs {
             WebElement element = this.driver.findElementById("song-list-pre-cache").findElement(By.tagName("tbody"));
             List<WebElement> element2 = element.findElements(By.tagName("tr"));
             List<HotMusic> list = Lists.newArrayList();
-            for (Object localObject1 = element2.iterator(); ((Iterator) localObject1).hasNext(); ) {
-                WebElement webElement = (WebElement) ((Iterator) localObject1).next();
+            for (WebElement webElement:element2 ) {
                 String id = (webElement.findElements(By.tagName("td")).get(1)).findElement(By.className("tt")).findElement(By.tagName("span")).getAttribute("data-res-id");
                 String num = webElement.findElement(By.tagName("span")).getText();
                 String song = webElement.findElement(By.tagName("b")).getAttribute("title");
@@ -65,6 +66,16 @@ public class Phantomjs {
                 song = song.replace(Jsoup.parse("&nbsp;").text(), " ");
                 String time = webElement.findElement(By.className("s-fc3")).getText();
                 String singer = webElement.findElement(By.className("text")).getAttribute("title");
+
+//                JavascriptExecutor Javascript = (JavascriptExecutor) driver;
+//                this.driver.open("http://music.163.com/#/song?id="+id);
+//                this.driver.switchTo().window();
+//                this.driver.findElementByClassName("j-img");
+//                String img=this.driver.findElementByClassName("j-img").getAttribute("data-src");
+//                String currentNewWindow = newPhantomJSDriver.getWindowHandle();    //获取当前窗口句柄
+//                System.out.println("新的："+currentNewWindow);
+
+
                 HotMusic hotMusic = new HotMusic();
                 hotMusic.setRankNum(Integer.parseInt(num));
                 hotMusic.setSong(song);
