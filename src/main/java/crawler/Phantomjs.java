@@ -39,7 +39,7 @@ public class Phantomjs {
         dcaps.setJavascriptEnabled(true);
         // 驱动支持（第二参数表明的是你的phantomjs引擎所在的路径）
         //linux:/home/lzp/java/phantomjs-2.1.1-linux-x86_64/bin/phantomjs
-        dcaps.setCapability("phantomjs.binary.path", "F:/phantomjs/bin/phantomjs.exe");
+        dcaps.setCapability("phantomjs.binary.path", "/home/lzp/java/phantomjs-2.1.1-linux-x86_64/bin/phantomjs");
         this.driver = new PhantomJSDriver(dcaps);
         // 设置隐性等待（作用于全局）
         this.driver.manage().timeouts().implicitlyWait(1L, TimeUnit.SECONDS);
@@ -50,7 +50,6 @@ public class Phantomjs {
         // 打开页面
         this.driver.get(url);
         String currentWindow = driver.getWindowHandle();    //获取当前窗口句柄
-        System.out.println("旧的："+currentWindow);
         try {
             // 查找元素
             //输出html内容
@@ -76,7 +75,6 @@ public class Phantomjs {
                 executor.executeScript("window.open('" + "http://music.163.com/#/song?id="+id + "')");
                 //获取所有窗口句柄
                 handles = new ArrayList<String>(driver.getWindowHandles());
-                System.out.println(handles.size());
                 //切换到最后一个窗口，就是新打开的那个页面
                 WebDriver webDriver=driver.switchTo().window(handles.get(handles.size()-1));
                 Thread.sleep(1000);
@@ -85,9 +83,7 @@ public class Phantomjs {
 
                 //获取当前窗口句柄
                 String currentNewWindow = webDriver.getWindowHandle();
-                System.out.println("新的："+currentNewWindow);
                 webDriver.close();
-                System.out.println(driver.getWindowHandles().size());
                 handles = new ArrayList<String>(driver.getWindowHandles());
                 //新的页面已经关闭，所以最后一个句柄就是之前那个table的窗口
                 driver.switchTo().window(handles.get(handles.size() - 1));

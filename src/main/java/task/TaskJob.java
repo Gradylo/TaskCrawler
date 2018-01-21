@@ -23,13 +23,16 @@ public class TaskJob {
     /**
      * 0 0/15 * * * ?
      */
-    @Scheduled(cron = "3 * * * * ?")
+    @Scheduled(cron = "0 0/30 * * * ?")
     public void aTask() {
         List<HotMusic> list = new Phantomjs().crawlerHtml("http://music.163.com/#/discover/toplist?id=3778678");
-        int del = this.MusicList.deleteHotMusic();
-        System.out.println(del);
-        int save = this.MusicList.saveHotMusicList(list);
-        System.out.println(save);
-        System.out.println("----------------end-------------------------");
+        if(list!=null&&list.size()>0){
+            int del = this.MusicList.deleteHotMusic();
+            System.out.println(del);
+            int save = this.MusicList.saveHotMusicList(list);
+            System.out.println(save);
+            System.out.println("----------------end-------------------------");
+        }
     }
+
 }

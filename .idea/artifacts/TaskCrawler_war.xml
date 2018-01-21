@@ -1,8 +1,8 @@
 <component name="ArtifactManager">
   <artifact type="war" name="TaskCrawler:war">
-    <output-path>$PROJECT_DIR$/target</output-path>
-    <root id="archive" name="TaskCrawler-0.0.1-SNAPSHOT.war">
-      <element id="artifact" artifact-name="TaskCrawler:war exploded" />
+    <output-path>$PROJECT_DIR$/out_war</output-path>
+    <root id="archive" name="TaskCrawler_war.war">
+      <element id="dir-copy" path="$PROJECT_DIR$/target/TaskCrawler-0.0.1-SNAPSHOT" />
     </root>
   </artifact>
 </component>
