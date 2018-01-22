@@ -70,6 +70,8 @@ public class Phantomjs {
                 String time = webElement.findElement(By.className("s-fc3")).getText();
                 String singer = webElement.findElement(By.className("text")).getAttribute("title");
 
+                
+                
                 JavascriptExecutor executor = (JavascriptExecutor) driver;
                 //打开新窗口
                 executor.executeScript("window.open('" + "http://music.163.com/#/song?id="+id + "')");
