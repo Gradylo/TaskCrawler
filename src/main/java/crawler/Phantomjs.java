@@ -3,6 +3,7 @@ package crawler;
 import com.google.common.collect.Lists;
 import model.HotMusic;
 import org.jsoup.Jsoup;
+import org.jsoup.nodes.Element;
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
@@ -39,7 +40,7 @@ public class Phantomjs {
         dcaps.setJavascriptEnabled(true);
         // 驱动支持（第二参数表明的是你的phantomjs引擎所在的路径）
         //linux:/home/lzp/java/phantomjs-2.1.1-linux-x86_64/bin/phantomjs
-        dcaps.setCapability("phantomjs.binary.path", "/home/lzp/java/phantomjs-2.1.1-linux-x86_64/bin/phantomjs");
+        dcaps.setCapability("phantomjs.binary.path", "F:/phantomjs/bin/phantomjs.exe");
         this.driver = new PhantomJSDriver(dcaps);
         // 设置隐性等待（作用于全局）
         this.driver.manage().timeouts().implicitlyWait(1L, TimeUnit.SECONDS);
@@ -55,6 +56,7 @@ public class Phantomjs {
             //输出html内容
             //WebElement webElement = driver.findElement(By.xpath("/html"));
             //System.out.println(webElement.getAttribute("outerHTML"));
+            Thread.sleep(1000);
             this.driver.switchTo().frame("g_iframe");
             WebElement element = this.driver.findElementById("song-list-pre-cache").findElement(By.tagName("tbody"));
             List<WebElement> element2 = element.findElements(By.tagName("tr"));
@@ -62,7 +64,8 @@ public class Phantomjs {
             //获取所有窗口句柄
             List<String> handles = new ArrayList<String>(driver.getWindowHandles());
             for (WebElement webElement:element2 ) {
-                String id = webElement.findElements(By.tagName("td")).get(1).findElement(By.className("tt")).findElement(By.tagName("span")).getAttribute("data-res-id");
+                String id = webElement.findElements(By.tagName("td")).get(1).
+                        findElement(By.className("tt")).findElement(By.tagName("span")).getAttribute("data-res-id");
                 String num = webElement.findElement(By.tagName("span")).getText();
                 String song = webElement.findElement(By.tagName("b")).getAttribute("title");
                 //替换&nbsp;
@@ -72,14 +75,42 @@ public class Phantomjs {
 
                 JavascriptExecutor executor = (JavascriptExecutor) driver;
                 //打开新窗口
-                executor.executeScript("window.open('" + "http://music.163.com/#/song?id="+id + "')");
+                executor.executeScript("window.open('" + "http://music.163.com/#/song?id="+id+"')");
+
+
+
                 //获取所有窗口句柄
                 handles = new ArrayList<String>(driver.getWindowHandles());
                 //切换到最后一个窗口，就是新打开的那个页面
                 WebDriver webDriver=driver.switchTo().window(handles.get(handles.size()-1));
-                Thread.sleep(1000);
+                Thread.sleep(3000);
                 webDriver.switchTo().frame("g_iframe");
+
+                WebElement LyricWe=webDriver.findElement(By.id("lyric-content"));
+
+                String html = webDriver.findElement(By.xpath("/html")).getAttribute("outerHTML");
+
+                Element e= Jsoup.parse(html).getElementById("flag_ctrl");
+                String Lyric="";
+
+                if (e!=null){
+                    //查找展开节点
+                    WebElement LyricClick=webDriver.findElement(By.id("flag_ctrl"));
+                    //点击展开
+                    LyricClick.click();
+                    Lyric=LyricWe.getText();
+                    System.out.println(Lyric.lastIndexOf("\n"));
+                    Lyric=Lyric.substring(0,Lyric.lastIndexOf("\n"));
+                }
+
+
+                //WebElement we2=webDriver.findElement(By.id("flag_more"));
+
+
+                //获取图片
                 String img=webDriver.findElement(By.className("j-img")).getAttribute("data-src");
+
+
 
                 //获取当前窗口句柄
                 String currentNewWindow = webDriver.getWindowHandle();
@@ -100,6 +131,8 @@ public class Phantomjs {
                 hotMusic.setUrl("http://music.163.com/song/media/outer/url?id=" + id + ".mp3");
                 hotMusic.setSongId(id);
                 hotMusic.setImg(img);
+
+                hotMusic.setLyric(Lyric);
                 list.add(hotMusic);
                 System.out.println(num + " " + song + " " + time + " " + singer+" "+img);
             }
@@ -113,5 +146,8 @@ public class Phantomjs {
         }
         return null;
     }
+
+
+
 }
 

@@ -33,6 +33,8 @@ public class HotMusic implements Serializable {
 
     private String img;
 
+    private String Lyric;
+
     public int getId() {
         return id;
     }
@@ -111,5 +113,13 @@ public class HotMusic implements Serializable {
 
     public void setImg(String img) {
         this.img = img;
+    }
+
+    public String getLyric() {
+        return Lyric;
+    }
+
+    public void setLyric(String lyric) {
+        Lyric = lyric;
     }
 }

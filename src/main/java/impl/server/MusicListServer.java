@@ -22,6 +22,7 @@ public class MusicListServer
     @Resource(name = "musicListDao")
     private MusicListDao MusicList;
 
+    @Override
     public List<HotMusic> findHotMusicList() {
         return MusicList.findHotMusicList();
     }
@@ -31,6 +32,7 @@ public class MusicListServer
      * @param pagingTransmission
      * @return
      */
+    @Override
     public List<HotMusic> queryHotMusic(PagingTransmission pagingTransmission) {
         if (pagingTransmission!=null){
             return MusicList.queryHotMusic(pagingTransmission);

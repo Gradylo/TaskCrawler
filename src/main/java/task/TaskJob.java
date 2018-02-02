@@ -1,6 +1,6 @@
 package task;
 
-import crawler.Phantomjs;
+import crawler.ChromeDrive;
 import interfaces.dao.MusicListDao;
 import model.HotMusic;
 import org.springframework.scheduling.annotation.Scheduled;
@@ -21,11 +21,12 @@ public class TaskJob {
     private MusicListDao MusicList;
 
     /**
-     * 0 0/15 * * * ?
+     * 0 0 0 1/1 * ?
      */
-    @Scheduled(cron = "0 0/30 * * * ?")
+    @Scheduled(cron = "3 * * * * ?")
     public void aTask() {
-        List<HotMusic> list = new Phantomjs().crawlerHtml("http://music.163.com/#/discover/toplist?id=3778678");
+//        List<HotMusic> list = new Phantomjs().crawlerHtml("http://music.163.com/#/discover/toplist?id=3778678");
+        List<HotMusic> list = new ChromeDrive().crawlerHtml("http://music.163.com/#/discover/toplist?id=3778678");
         if(list!=null&&list.size()>0){
             int del = this.MusicList.deleteHotMusic();
             System.out.println(del);
